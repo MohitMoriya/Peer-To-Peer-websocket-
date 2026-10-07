@@ -1,13 +1,219 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DropDirect - Fast P2P File Sharing</title>
+
+    <!-- ========== Primary SEO ========== -->
+    <title>DropDirect – Free P2P File Sharing | Send Large Files Directly, No Limits</title>
+    <meta name="description" content="Send large files directly from device to device with DropDirect. Free, private, end-to-end encrypted peer-to-peer file sharing in your browser — no uploads, no sign-up, no file size limits." />
+    <meta name="keywords" content="DropDirect, p2p file sharing, peer to peer file transfer, send large files, share files online free, WebRTC file transfer, secure file sharing, no file size limit, wetransfer alternative, transfer files between devices" />
+    <meta name="author" content="DropDirect" />
+    <meta name="application-name" content="DropDirect" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <link rel="canonical" href="https://dropdirect.com/" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- ========== Theme / PWA ========== -->
+    <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="DropDirect" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <!-- ========== Icons ========== -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- ========== Open Graph (WhatsApp, Facebook, LinkedIn, Discord, Telegram) ========== -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="DropDirect" />
+    <meta property="og:url" content="https://dropdirect.com/" />
+    <meta property="og:title" content="DropDirect – Send Large Files Directly. No Uploads. No Limits." />
+    <meta property="og:description" content="Free, private, end-to-end encrypted peer-to-peer file sharing in your browser. No sign-up, no file size limits." />
+    <meta property="og:image" content="https://dropdirect.com/og-image.png" />
+    <meta property="og:image:secure_url" content="https://dropdirect.com/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="DropDirect – Send files directly. No uploads. No limits." />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- ========== Twitter / X Card ========== -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DropDirect – Send Large Files Directly. No Uploads. No Limits." />
+    <meta name="twitter:description" content="Free, private, end-to-end encrypted peer-to-peer file sharing in your browser. No sign-up, no file size limits." />
+    <meta name="twitter:image" content="https://dropdirect.com/og-image.png" />
+    <meta name="twitter:image:alt" content="DropDirect – Send files directly. No uploads. No limits." />
+
+    <!-- ========== Performance: fonts (moved out of CSS @import to avoid a request chain) ========== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+
+    <!-- Apply saved theme before first paint (prevents a white flash / layout shift) -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <style>
+      html { background: #f5f5f7; }
+      html[data-theme='dark'] { background: #000; }
+    </style>
+
+    <!-- ========== Structured Data (JSON-LD) ========== -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://dropdirect.com/#organization",
+            "name": "DropDirect",
+            "url": "https://dropdirect.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://dropdirect.com/icon-512.png",
+              "width": 512,
+              "height": 512
+            },
+            "sameAs": ["https://github.com/MohitMoriya/Peer-To-Peer-websocket-"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://dropdirect.com/#website",
+            "url": "https://dropdirect.com/",
+            "name": "DropDirect",
+            "alternateName": ["Drop Direct", "DropDirect P2P"],
+            "description": "Free, private peer-to-peer file sharing in your browser.",
+            "publisher": { "@id": "https://dropdirect.com/#organization" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "WebApplication",
+            "@id": "https://dropdirect.com/#app",
+            "name": "DropDirect",
+            "url": "https://dropdirect.com/",
+            "applicationCategory": "UtilitiesApplication",
+            "applicationSubCategory": "File Sharing",
+            "operatingSystem": "Any (Web Browser)",
+            "browserRequirements": "Requires a modern browser with WebRTC support.",
+            "description": "Send large files directly between devices with end-to-end encrypted peer-to-peer transfer. No uploads, no sign-up and no file size limits.",
+            "image": "https://dropdirect.com/og-image.png",
+            "isAccessibleForFree": true,
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+            "featureList": [
+              "Direct peer-to-peer file transfer (WebRTC)",
+              "End-to-end encryption (DTLS)",
+              "No file size limits",
+              "No sign-up or account required",
+              "Join via 6-digit code, link or QR code",
+              "Encrypted real-time chat",
+              "Works on Android, iPhone, Windows, macOS and Linux"
+            ],
+            "publisher": { "@id": "https://dropdirect.com/#organization" }
+          },
+          {
+            "@type": "HowTo",
+            "name": "How to send a large file with DropDirect",
+            "description": "Send any file directly to another device in three steps.",
+            "totalTime": "PT1M",
+            "step": [
+              {
+                "@type": "HowToStep",
+                "position": 1,
+                "name": "Create a secure room",
+                "text": "Open DropDirect and click \"Create Secure Room\" to get a private 6-digit room code."
+              },
+              {
+                "@type": "HowToStep",
+                "position": 2,
+                "name": "Share the code",
+                "text": "Send the code, link or QR code to the receiver. They join the room from any browser."
+              },
+              {
+                "@type": "HowToStep",
+                "position": 3,
+                "name": "Send directly",
+                "text": "Select your file and press Send. It streams straight to the other device, end-to-end encrypted."
+              }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://dropdirect.com/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Is DropDirect free?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. DropDirect is completely free to use. There is no sign-up, no account and no subscription." }
+              },
+              {
+                "@type": "Question",
+                "name": "Is there a file size limit?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. Because files are sent directly between browsers, you are only limited by your own device's memory and network speed." }
+              },
+              {
+                "@type": "Question",
+                "name": "Are my files saved on a server?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Absolutely not. Files travel directly from your device to the receiver's device. The signaling server is only used for the initial connection handshake and never sees your files." }
+              },
+              {
+                "@type": "Question",
+                "name": "Is DropDirect secure?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. All data sent through WebRTC Data Channels is encrypted end-to-end using DTLS (Datagram Transport Layer Security)." }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I send a large file with DropDirect?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Click \"Create Secure Room\", share the 6-digit code, link or QR code with the receiver, and once they join, select your file and press Send. The file streams directly to their device." }
+              },
+              {
+                "@type": "Question",
+                "name": "Does DropDirect work on mobile phones?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. DropDirect works in any modern browser on Android, iPhone, Windows, macOS and Linux. No app installation is needed, and you can scan the QR code to join instantly." }
+              },
+              {
+                "@type": "Question",
+                "name": "Do both people need to stay online during the transfer?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Since there is no cloud storage, both the sender and the receiver must keep the room open until the transfer completes." }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Fallback content for crawlers / users without JavaScript -->
+    <noscript>
+      <main style="max-width:720px;margin:4rem auto;padding:0 1.5rem;font-family:Inter,system-ui,sans-serif;line-height:1.6;color:#1d1d1f">
+        <h1>DropDirect – Free P2P File Sharing</h1>
+        <p>Send large files directly from device to device. DropDirect is a free, private, end-to-end encrypted peer-to-peer file sharing app that runs in your browser — no uploads, no sign-up and no file size limits.</p>
+        <h2>How it works</h2>
+        <ol>
+          <li>Create a secure room and get a 6-digit code.</li>
+          <li>Share the code, link or QR code with the receiver.</li>
+          <li>Select your file and send it directly — it never touches our servers.</li>
+        </ol>
+        <p><strong>Please enable JavaScript to use DropDirect.</strong></p>
+      </main>
+    </noscript>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

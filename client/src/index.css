@@ -10,6 +10,7 @@
   --apple-border: rgba(0, 0, 0, 0.05);
   --apple-icon-bg-start: #e2e2e5;
   --apple-icon-bg-end: #ffffff;
+  --apple-surface: #ffffff;
 }
 
 [data-theme='dark'] {
@@ -20,6 +21,7 @@
   --apple-border: rgba(255, 255, 255, 0.1);
   --apple-icon-bg-start: #2c2c2e;
   --apple-icon-bg-end: #1c1c1e;
+  --apple-surface: rgba(255, 255, 255, 0.05);
 }
 
 * {
@@ -426,3 +428,187 @@ body {
   border-color: var(--apple-blue);
   background: rgba(10, 132, 255, 0.05);
 }
+
+/* Accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--apple-blue);
+  color: white;
+  padding: 8px 16px;
+  z-index: 1000;
+  transition: top 0.2s;
+  text-decoration: none;
+  font-weight: 500;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* Home Page Specific */
+.hero-eyebrow {
+  display: block;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--apple-blue);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.feature-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  list-style: none;
+  justify-content: center;
+  margin: 3rem 0;
+  padding: 0;
+}
+.feature-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--apple-surface);
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--apple-border);
+  color: var(--apple-text-main);
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.info-section {
+  max-width: 800px;
+  width: 100%;
+  margin: 4rem auto 0;
+  text-align: center;
+}
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--apple-text-main);
+  letter-spacing: -0.01em;
+}
+.section-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--apple-text-muted);
+  margin-bottom: 2rem;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin-top: 2rem;
+}
+.step-card {
+  background: var(--apple-card-bg);
+  border: 1px solid var(--apple-border);
+  border-radius: 20px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  position: relative;
+  backdrop-filter: blur(10px);
+}
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--apple-blue);
+  color: white;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin: 0 auto 1.5rem;
+}
+.step-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--apple-text-main);
+}
+.step-card p {
+  color: var(--apple-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+}
+.faq-item {
+  background: var(--apple-surface);
+  border: 1px solid var(--apple-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.faq-item summary {
+  padding: 1.25rem 1.5rem;
+  font-weight: 500;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--apple-text-main);
+  list-style: none; /* Hide default triangle */
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item summary::after {
+  content: '+';
+  font-size: 1.5rem;
+  color: var(--apple-blue);
+  transition: transform 0.3s;
+}
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+.faq-item p {
+  padding: 0 1.5rem 1.25rem;
+  color: var(--apple-text-muted);
+  line-height: 1.6;
+}
+
+/* Footer styling */
+.site-footer {
+  margin-top: auto;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-top: 1px solid var(--apple-border);
+  background: var(--apple-bg);
+}
+.footer-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+.footer-links a {
+  color: var(--apple-text-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+.footer-links a:hover {
+  color: var(--apple-text-main);
+}
+.site-footer p {
+  color: var(--apple-text-muted);
+  font-size: 0.85rem;
+}
+

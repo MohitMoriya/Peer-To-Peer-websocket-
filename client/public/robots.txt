@@ -1,0 +1,9 @@
+# DropDirect — https://dropdirect.com
+User-agent: *
+Allow: /
+
+# Note: /room/* pages are kept out of search results via `noindex`
+# (meta tag + X-Robots-Tag header), so they are intentionally NOT
+# disallowed here — crawlers must be able to read the noindex directive.
+
+Sitemap: https://dropdirect.com/sitemap.xml
