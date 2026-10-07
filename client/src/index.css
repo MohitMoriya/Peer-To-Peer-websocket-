@@ -41,7 +41,7 @@ body {
 }
 
 .container {
-  max-width: 980px; /* Apple's classic max-width */
+  max-width: 1300px; /* Expanded for 3-column layout */
   margin: 0 auto;
   padding: 4rem 2rem;
   width: 100%;
@@ -306,14 +306,14 @@ body {
 .workspace-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
-  max-width: 1000px;
+  gap: 1.5rem;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .workspace-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 280px 1fr 1fr;
   }
 }
 

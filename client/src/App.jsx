@@ -7,6 +7,40 @@ import Peer from 'simple-peer';
 import { playPopSound, playSuccessSound } from './audio';
 import './index.css';
 
+function Navbar() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '1.5rem 2.5rem', width: '100%', position: 'absolute', top: 0, left: 0, zIndex: 50 }}>
+      <div style={{
+        background: 'linear-gradient(135deg, #00C6FF 0%, #0072FF 100%)',
+        color: 'white',
+        width: '40px',
+        height: '40px',
+        borderRadius: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontWeight: '800',
+        fontSize: '1.2rem',
+        letterSpacing: '-0.02em',
+        boxShadow: '0 0 15px rgba(0, 198, 255, 0.6), 0 0 30px rgba(0, 114, 255, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.5)',
+        border: '1px solid rgba(255, 255, 255, 0.4)',
+        textShadow: '0 1px 2px rgba(0,0,0,0.2)'
+      }}>
+        DD
+      </div>
+      <span style={{ fontSize: '1.5rem', fontWeight: '700', letterSpacing: '-0.03em', color: 'var(--apple-text-main)' }}>DropDirect.</span>
+    </div>
+  );
+}
+
+function Footer() {
+  return (
+    <footer style={{ width: '100%', padding: '2.5rem 2rem', textAlign: 'center', color: 'var(--apple-text-muted)', fontSize: '0.85rem', marginTop: 'auto' }}>
+      <p>&copy; {new Date().getFullYear()} DropDirect. Built for secure, direct transfers.</p>
+    </footer>
+  );
+}
+
 function ThemeToggle() {
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('theme');
@@ -113,7 +147,7 @@ function Home() {
         <History size={18} /> History
       </button>
 
-      <h1 className="header-title">PeerShare.</h1>
+      <h1 className="header-title">DropDirect.</h1>
       <p className="header-subtitle">
         The fastest, most secure way to transfer files. Completely serverless.
       </p>
@@ -230,6 +264,31 @@ function Home() {
           </div>
         </div>
       )}
+
+      {/* About & FAQ Section */}
+      <div className="about-section animate-fade-in" style={{ marginTop: '6rem', maxWidth: '800px', width: '100%', textAlign: 'left', paddingBottom: '2rem' }}>
+        <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--apple-text-main)', fontWeight: '600', letterSpacing: '-0.02em' }}>About DropDirect</h2>
+        <p style={{ color: 'var(--apple-text-muted)', lineHeight: '1.6', fontSize: '1.05rem', marginBottom: '4rem' }}>
+          DropDirect is designed to eliminate the middleman. By utilizing WebRTC technology, your files travel directly from your device to the receiver's device. No servers, no file size limits, and no storage tracking. It's the most secure way to transfer sensitive data over any network.
+        </p>
+
+        <h2 style={{ fontSize: '2rem', marginBottom: '2rem', color: 'var(--apple-text-main)', fontWeight: '600', letterSpacing: '-0.02em' }}>Frequently Asked Questions</h2>
+        
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          <div style={{ background: 'var(--apple-card-bg)', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--apple-border)' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--apple-text-main)', marginBottom: '0.5rem' }}>Is there a file size limit?</h3>
+            <p style={{ color: 'var(--apple-text-muted)', lineHeight: '1.5', fontSize: '0.95rem' }}>No. Because files are sent directly between browsers, you are only limited by your own device's memory and network speed.</p>
+          </div>
+          <div style={{ background: 'var(--apple-card-bg)', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--apple-border)' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--apple-text-main)', marginBottom: '0.5rem' }}>Are my files saved on a server?</h3>
+            <p style={{ color: 'var(--apple-text-muted)', lineHeight: '1.5', fontSize: '0.95rem' }}>Absolutely not. DropDirect is 100% serverless for data transfer. The signaling server is only used for the initial connection handshake.</p>
+          </div>
+          <div style={{ background: 'var(--apple-card-bg)', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--apple-border)' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--apple-text-main)', marginBottom: '0.5rem' }}>Is it secure?</h3>
+            <p style={{ color: 'var(--apple-text-muted)', lineHeight: '1.5', fontSize: '0.95rem' }}>Yes. All data sent through WebRTC Data Channels is heavily encrypted end-to-end using DTLS (Datagram Transport Layer Security).</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -249,6 +308,7 @@ function Room() {
   const [transferSpeed, setTransferSpeed] = useState('');
   const [eta, setEta] = useState('');
   const [isTransferring, setIsTransferring] = useState(false);
+  const [transferHistory, setTransferHistory] = useState([]);
   
   const receivingMetaRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -277,7 +337,7 @@ function Room() {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `Join my PeerShare Room: ${id}`,
+          title: `Join my DropDirect Room: ${id}`,
           text: `Use this code to securely share files with me: ${id}`,
           url: roomUrl
         });
@@ -327,7 +387,17 @@ function Room() {
         a.href = url;
         a.download = receivingMetaRef.current.name;
         a.click();
-        URL.revokeObjectURL(url);
+        // Removed URL.revokeObjectURL(url) to keep the URL active for history
+        
+        const newHistory = {
+          id: Date.now(),
+          name: receivingMetaRef.current.name,
+          size: receivingMetaRef.current.size,
+          type: 'received',
+          time: new Date(),
+          url: url
+        };
+        setTransferHistory(prev => [newHistory, ...prev]);
         
         setIsTransferring(false);
         setTransferProgress(100);
@@ -354,13 +424,12 @@ function Room() {
     setChatInput('');
   };
 
-  const CHUNK_SIZE = 64 * 1024;
+  const CHUNK_SIZE = 256 * 1024; // 256KB for higher throughput
   
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
     if (!file) return;
     setSelectedFile(file);
-    startFileTransfer(file);
   };
 
   const startFileTransfer = (file) => {
@@ -381,8 +450,8 @@ function Room() {
     let lastOffset = 0;
 
     const readNextChunk = () => {
-      if (peerRef.current && peerRef.current._channel && peerRef.current._channel.bufferedAmount > 1024 * 1024 * 8) {
-          setTimeout(readNextChunk, 50);
+      if (peerRef.current && peerRef.current._channel && peerRef.current._channel.bufferedAmount > 1024 * 1024 * 16) {
+          setTimeout(readNextChunk, 10);
           return;
       }
       const slice = file.slice(offset, offset + CHUNK_SIZE);
@@ -412,6 +481,18 @@ function Room() {
             setTransferProgress(100);
             setIsTransferring(false);
             peerRef.current.send(JSON.stringify({ type: 'file-end' }));
+            
+            const url = URL.createObjectURL(file);
+            const newHistory = {
+              id: Date.now(),
+              name: file.name,
+              size: file.size,
+              type: 'sent',
+              time: new Date(),
+              url: url
+            };
+            setTransferHistory(prev => [newHistory, ...prev]);
+
             showToast('Transfer Complete!');
             playSuccessSound();
         }
@@ -422,7 +503,8 @@ function Room() {
 
   useEffect(() => {
     console.log('Connecting to Signaling Server...');
-    const socket = io('http://localhost:5005');
+    const socketUrl = `http://${window.location.hostname}:5005`;
+    const socket = io(socketUrl);
     socketRef.current = socket;
     
     socket.on('connect', () => {
@@ -543,6 +625,36 @@ function Room() {
       {isConnected ? (
         <div className="workspace-grid animate-fade-in">
           
+          {/* Transfer History Sidebar */}
+          <div className="card" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
+            <h2 style={{ fontSize: '1.1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--apple-text-main)' }}>
+              <History size={16} color="var(--apple-blue)" /> Transfer History
+            </h2>
+            <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '400px' }}>
+              {transferHistory.length === 0 && (
+                 <p style={{ color: 'var(--apple-text-muted)', fontSize: '0.85rem', textAlign: 'center', marginTop: '2rem' }}>No files transferred yet</p>
+              )}
+              {transferHistory.map(item => (
+                 <a key={item.id} href={item.url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', display: 'block', color: 'inherit' }}>
+                   <div style={{ background: 'var(--apple-surface)', padding: '0.75rem', borderRadius: '12px', border: '1px solid var(--apple-border)', textAlign: 'left', cursor: 'pointer' }}
+                        onMouseOver={e => e.currentTarget.style.borderColor = 'var(--apple-blue)'}
+                        onMouseOut={e => e.currentTarget.style.borderColor = 'var(--apple-border)'}>
+                     <div style={{ fontSize: '0.85rem', fontWeight: '500', marginBottom: '0.25rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'var(--apple-text-main)' }}>
+                       <span style={{ color: item.type === 'sent' ? 'var(--apple-blue)' : '#34c759', marginRight: '4px' }}>
+                         {item.type === 'sent' ? '↗' : '↙'}
+                       </span> 
+                       {item.name}
+                     </div>
+                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--apple-text-muted)' }}>
+                       <span>{(item.size / (1024*1024)).toFixed(2)} MB</span>
+                       <span>{item.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                     </div>
+                   </div>
+                 </a>
+              ))}
+            </div>
+          </div>
+
           {/* File Transfer Section */}
           <div className="card" style={{ padding: '2rem' }}>
             <h2 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -550,12 +662,24 @@ function Room() {
             </h2>
             
             {!isTransferring ? (
-              <div className="file-dropzone" onClick={() => fileInputRef.current?.click()}>
-                 <UploadCloud size={48} color="var(--apple-text-muted)" style={{ margin: '0 auto 1rem' }} />
-                 <p style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '0.5rem' }}>Click to select a file</p>
-                 <p style={{ fontSize: '0.9rem', color: 'var(--apple-text-muted)' }}>Secure P2P transfer. No limits.</p>
-                 <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileSelect} />
-              </div>
+              selectedFile ? (
+                <div className="file-dropzone" style={{ padding: '2rem', borderStyle: 'solid', borderColor: 'var(--apple-blue)', backgroundColor: 'var(--apple-surface)' }}>
+                   <FileOutput size={48} color="var(--apple-blue)" style={{ margin: '0 auto 1rem' }} />
+                   <p style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '0.2rem', wordBreak: 'break-all', color: 'var(--apple-text-main)' }}>{selectedFile.name}</p>
+                   <p style={{ fontSize: '0.9rem', color: 'var(--apple-text-muted)', marginBottom: '1.5rem' }}>{(selectedFile.size / (1024*1024)).toFixed(2)} MB</p>
+                   <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                     <button className="btn-secondary" onClick={() => { setSelectedFile(null); if(fileInputRef.current) fileInputRef.current.value = ''; }}>Cancel</button>
+                     <button className="btn" onClick={() => startFileTransfer(selectedFile)}>Send File</button>
+                   </div>
+                </div>
+              ) : (
+                <div className="file-dropzone" onClick={() => fileInputRef.current?.click()}>
+                   <UploadCloud size={48} color="var(--apple-text-muted)" style={{ margin: '0 auto 1rem' }} />
+                   <p style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '0.5rem' }}>Click to select a file</p>
+                   <p style={{ fontSize: '0.9rem', color: 'var(--apple-text-muted)' }}>Secure P2P transfer. No limits.</p>
+                   <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileSelect} />
+                </div>
+              )
             ) : (
               <div style={{ textAlign: 'center', padding: '2rem 0' }}>
                  <div className="progress-ring-wrapper">
@@ -668,11 +792,15 @@ function Room() {
 function App() {
   return (
     <BrowserRouter>
-      <ThemeToggle />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/room/:id" element={<Room />} />
-      </Routes>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative' }}>
+        <Navbar />
+        <ThemeToggle />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/room/:id" element={<Room />} />
+        </Routes>
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 }

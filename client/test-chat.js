@@ -33,7 +33,7 @@ import puppeteer from 'puppeteer';
   await new Promise(r => setTimeout(r, 6000));
 
   const isConnected = await initiatorPage.evaluate(() => {
-    return document.body.innerText.includes('Securely Connected!');
+    return document.body.innerText.includes('File Transfer');
   });
   console.log('Is Connected?', isConnected);
 

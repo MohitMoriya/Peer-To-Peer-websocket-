@@ -1,6 +1,6 @@
-# PeerShare 🚀
+# DropDirect 🚀
 
-PeerShare is a premium, serverless Peer-to-Peer (P2P) file sharing and secure chat application. Built with modern web technologies, it allows users to connect directly browser-to-browser to share files of any size with no limits, zero server storage, and end-to-end encryption.
+DropDirect is a premium, serverless Peer-to-Peer (P2P) file sharing and secure chat application. Built with modern web technologies, it allows users to connect directly browser-to-browser to share files of any size with no limits, zero server storage, and end-to-end encryption.
 
 ## ✨ Features
 
